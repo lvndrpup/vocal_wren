@@ -1,0 +1,9 @@
+# qew local cache
+.qew/snapshot.db
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

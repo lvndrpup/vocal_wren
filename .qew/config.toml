@@ -1,0 +1,9 @@
+[ledger]
+path = "../vocal_wren-ledger"
+
+[code]
+target = "main"
+
+[[mirror]]
+forge = "github"
+repo = "https://github.com/lvndrpup/vocal_wren"
