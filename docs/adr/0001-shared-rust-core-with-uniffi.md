@@ -1,10 +1,12 @@
 ---
-status: proposed
+status: superseded by ADR-0006
 date: 2026-10-26
 decision-makers: owner (lvndrpup)
 ---
 
 # Shared Rust core exposed to Kotlin with UniFFI
+
+> Superseded by [ADR-0006](0006-pure-kotlin-core-module.md) on 2026-10-26: the core is pure Kotlin.
 
 ## Context and Problem Statement
 

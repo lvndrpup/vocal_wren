@@ -16,41 +16,27 @@ for the full set of principles.
 
 ## Status
 
-**M0 Foundations.** The goal is a hello-frame round trip (Kotlin → Rust → Kotlin) that
-builds in CI; the app shows `Core 0.1.0 · frame 1`. See the [roadmap](docs/roadmap.md).
+**M0 Foundations.** The app shell and the pure-Kotlin core module build and test in CI;
+the app shows `Core 0.1.0 · frame 1`. See the [roadmap](docs/roadmap.md).
 
 ## Layout
 
 ```
-core/       Rust core (Cargo workspace): vt-analysis, vt-ffi (UniFFI bindings)
-android/    Android app (Kotlin, Jetpack Compose): :app, :core-bridge
-scripts/    Build scripts for the native libraries and Kotlin bindings
-.github/    CI workflows
+android/    Gradle project "wren": :app (Kotlin, Jetpack Compose) and :core (pure Kotlin:
+            analysis, confidence, safety, coaching)
+.github/    CI workflow
 docs/       Constitution, roadmap, open questions, ADRs
 ```
 
 ## Building
 
-Needs: Rust (version pinned in `core/rust-toolchain.toml`), `cargo-ndk`, an Android NDK
-(`ANDROID_NDK_HOME`), JDK 17, the Android SDK and Gradle.
+Needs JDK 17 and the Android SDK. Open `android/` in IntelliJ IDEA or Android Studio, or
+from a terminal:
 
 ```powershell
-# 1. Build the Rust core for Android and generate Kotlin bindings (Windows)
-.\scripts\build-android.ps1
-#    or on Linux/macOS: bash scripts/build-android.sh
-
-# 2. Once only: create the Gradle wrapper (not committed; CI uses Gradle 8.14.3)
 cd android
-gradle wrapper --gradle-version 8.14.3
-cd ..
-
-# 3. Build the app
-gradle -p android :app:assembleDebug
-#    or with the wrapper: .\android\gradlew.bat -p android :app:assembleDebug
+.\gradlew.bat :core:test :app:assembleDebug
 ```
-
-Generated files (`android/core-bridge/src/main/jniLibs/` and
-`android/core-bridge/src/main/java/uniffi/`) are gitignored.
 
 ## Contributing and work tracking
 

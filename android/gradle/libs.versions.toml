@@ -4,8 +4,6 @@ agp = "8.12.0"
 kotlin = "2.2.0"
 composeBom = "2025.06.00"
 activityCompose = "1.10.1"
-# Used as "net.java.dev.jna:jna:<jna>@aar" in core-bridge (catalogs cannot express @aar).
-jna = "5.17.0"
 junit = "4.13.2"
 
 [libraries]
@@ -17,6 +15,6 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

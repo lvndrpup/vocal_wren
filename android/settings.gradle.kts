@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "wren"
 
-include(":app", ":core-bridge")
+include(":app", ":core")

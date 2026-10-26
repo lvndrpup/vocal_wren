@@ -1,7 +1,8 @@
 # Vocal Wren Constitution
 
-**Version:** 1.0.1
-**Ratified:** 2026-10-26
+**Version:** 2.0.0
+**Ratified:** 2026-10-26 (v1.0.1); v2.0.0 ratified when the owner merges it
+**Amended:** 2.0.0, principle IX: the shared core is pure Kotlin instead of Rust ([ADR-0006](adr/0006-pure-kotlin-core-module.md))
 **Owner:** lvndrpup (project owner)
 
 These principles are non-negotiable. Every spec, ADR, pull request and agent action must
@@ -29,7 +30,7 @@ recording. A CI check of the merged manifest is planned.
 
 ## II. Measurement honesty
 
-Every user-facing metric has a confidence value computed in the Rust core. Below the
+Every user-facing metric has a confidence value computed in the core. Below the
 confidence threshold the app shows no number, no trend and no claim.
 
 **Rationale.** A wrong number presented confidently does more harm than no number. People
@@ -69,7 +70,7 @@ Safety cues pre-empt training cues. Sessions have caps, and the app prompts for 
 **Rationale.** Vocal strain is a real risk of voice training. No progress goal justifies
 injury.
 
-**Checked by.** Safety logic lives in the Rust core with tests proving safety cues take
+**Checked by.** Safety logic lives in the core with tests proving safety cues take
 priority over coaching cues; session caps and rest prompts are covered by spec F8.
 
 ## VI. Encouragement, not coercion
@@ -100,19 +101,23 @@ Coaching text lives in versioned content packs, not in code.
 **Rationale.** Coaching wording needs review (including by an SLP) and iteration without
 rebuilding the app, and it must be versioned so a change can be traced and reverted.
 
-**Checked by.** Code review rejects user-facing coaching strings hard-coded in Rust or
-Kotlin; content packs carry a version (spec F16).
+**Checked by.** Code review rejects user-facing coaching strings hard-coded in
+code; content packs carry a version (spec F16).
 
-## IX. Shared Rust core
+## IX. Shared core
 
-All DSP, analysis, confidence, safety and coaching logic is in Rust. Real-time audio
-callbacks are allocation-free and lock-free.
+All DSP, analysis, confidence, safety and coaching logic lives in one pure-Kotlin core
+module (`android/core`) with no Android dependencies. The steady-state audio path does
+not allocate per frame and takes no locks.
 
-**Rationale.** One tested core keeps behaviour consistent and makes future platforms
-cheaper. Allocation or locking on the audio thread causes glitches.
+**Rationale.** One tested core keeps behaviour consistent, runs its tests on any JVM, and
+can be shared with other platforms through Kotlin Multiplatform. One language keeps a
+solo project maintainable. Allocation or locking on the audio thread causes glitches and
+garbage-collection pauses.
 
-**Checked by.** Code review (Kotlin holds UI and platform glue only); audio-callback code
-is reviewed for allocation and locking, with automated checks to be decided in M1 spikes.
+**Checked by.** Code review (Android modules hold UI and platform glue only; the core
+module's build file has no Android dependency); audio-path code is reviewed for
+per-frame allocation and locking, with automated checks to be decided in M1 spikes.
 
 ## X. Test-first, oracle-verified
 
@@ -140,8 +145,8 @@ ADR. Agents propose ADRs with status Proposed; only the owner accepts them.
 ## Licensing constraint
 
 No GPL, AGPL or LGPL code is shipped in the app binary. The project's intended licence is
-Apache-2.0. **Checked by:** `cargo-deny` licence allow-list in CI for Rust dependencies;
-dependency review for Android dependencies.
+Apache-2.0. **Checked by:** dependency review on every PR that adds or upgrades a dependency; an
+automated licence check in CI is planned.
 
 ## Amendments
 

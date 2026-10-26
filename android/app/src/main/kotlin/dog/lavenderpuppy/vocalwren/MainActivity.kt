@@ -15,7 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import dog.lavenderpuppy.vocalwren.corebridge.CoreBridge
+import dog.lavenderpuppy.vocalwren.core.Core
+import dog.lavenderpuppy.vocalwren.core.Frame
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,15 +33,14 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun HelloFrameScreen() {
-    val version = remember { CoreBridge.version() }
-    val frame = remember { CoreBridge.helloFrame() }
+    val frame = remember { Frame.hello() }
     Box(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         contentAlignment = Alignment.Center,
     ) {
         // Plain Text is read by TalkBack as-is; no extra semantics needed.
         Text(
-            text = stringResource(R.string.hello_frame, version, frame.index),
+            text = stringResource(R.string.hello_frame, Core.VERSION, frame.index),
             style = MaterialTheme.typography.headlineSmall,
         )
     }
