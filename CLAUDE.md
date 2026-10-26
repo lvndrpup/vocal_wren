@@ -26,10 +26,11 @@ Hard rules that come up most often:
 - The only permissions ever allowed: `RECORD_AUDIO`, `VIBRATE`, and `POST_NOTIFICATIONS`
   (only after the user opts into reminders). M0 declares none.
 - Never store, request or infer gender. Targets are parameter sets.
-- Every user-facing metric carries a confidence computed in Rust; below threshold, show
+- Every user-facing metric carries a confidence computed in the core; below threshold, show
   nothing.
-- All DSP, analysis, confidence, safety and coaching logic goes in the Rust core. Kotlin is
-  UI and platform glue. Real-time audio callbacks are allocation-free and lock-free.
+- All DSP, analysis, confidence, safety and coaching logic goes in the pure-Kotlin core
+  module (`android/core`, no Android dependencies). `:app` is UI and platform glue. The
+  steady-state audio path does not allocate per frame and takes no locks.
 - Coaching text goes in content packs, not code.
 - No GPL, AGPL or LGPL code in the shipped binary.
 - Tests come before or with code. Oracle tolerances are loosened only via an ADR.
@@ -71,11 +72,10 @@ Specs (planned under `specs/`) must include:
 ## Repo layout
 
 ```
-core/       Rust workspace: vt-analysis (pure analysis), vt-ffi (UniFFI, the only crate Kotlin sees)
-android/    Gradle project: :app (Compose UI), :core-bridge (generated bindings + CoreBridge)
-scripts/    build-android.sh / build-android.ps1
-.github/    CI workflows (rust.yml, android.yml)
-docs/       constitution, roadmap, open questions, ADRs
+android/    Gradle project "wren": :app (Compose UI, Android glue), :core (pure Kotlin/JVM:
+            DSP, analysis, confidence, safety, coaching)
+.github/    CI workflow (android.yml)
+docs/       constitution, roadmap, open questions, ADRs, salvage notes
 content/    coaching content packs (planned)
 oracle/     Praat/parselmouth oracle tests (planned)
 specs/      feature specs (planned)
@@ -83,30 +83,12 @@ specs/      feature specs (planned)
 
 ## Build commands
 
-Rust checks, as CI runs them. Run them inside `core/`: rustup picks the toolchain pinned
-in `core/rust-toolchain.toml` from the current directory, not from `--manifest-path`.
+From `android/`, with JDK 17 and the Android SDK (`ANDROID_HOME`) installed. The Gradle
+wrapper (8.14.3) is committed; don't use a system Gradle 9.6+, which can't load AGP 8.12.
 
 ```bash
-cd core
-cargo fmt --all --check
-cargo clippy --workspace --all-targets --all-features -- -D warnings
-cargo test --workspace
-cargo deny --all-features check        # needs cargo-deny installed
-cd ..
+./gradlew :core:test :app:assembleDebug     # exactly what CI runs
 ```
 
-Android, from the repo root:
-
-```bash
-# Native libs + Kotlin bindings (needs cargo-ndk and ANDROID_NDK_HOME)
-bash scripts/build-android.sh          # or: pwsh scripts/build-android.ps1 on Windows
-
-# App (CI uses Gradle 8.14.3; run `gradle wrapper --gradle-version 8.14.3` once in
-# android/ to get ./gradlew locally; the wrapper files are gitignored)
-gradle -p android :app:assembleDebug
-```
-
-The build script cross-compiles `vt-ffi` with `cargo ndk` into
-`android/core-bridge/src/main/jniLibs/` and generates Kotlin bindings into
-`android/core-bridge/src/main/java/uniffi/vt_ffi/`. Both are generated and gitignored;
-never commit them.
+No native code: if a task seems to need a native library, it needs a new ADR first
+(see [ADR-0006](docs/adr/0006-pure-kotlin-core-module.md)).
