@@ -39,13 +39,14 @@ Needs: Rust (version pinned in `core/rust-toolchain.toml`), `cargo-ndk`, an Andr
 .\scripts\build-android.ps1
 #    or on Linux/macOS: bash scripts/build-android.sh
 
-# 2. Once only: create the Gradle wrapper (the wrapper JAR is not committed)
+# 2. Once only: create the Gradle wrapper (not committed; CI uses Gradle 8.14.3)
 cd android
-gradle wrapper
+gradle wrapper --gradle-version 8.14.3
 cd ..
 
 # 3. Build the app
-gradle -p android :app:assembleDebug   # or android/gradlew :app:assembleDebug
+gradle -p android :app:assembleDebug
+#    or with the wrapper: .\android\gradlew.bat -p android :app:assembleDebug
 ```
 
 Generated files (`android/core-bridge/src/main/jniLibs/` and

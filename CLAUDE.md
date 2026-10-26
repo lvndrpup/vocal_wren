@@ -83,18 +83,26 @@ specs/      feature specs (planned)
 
 ## Build commands
 
-From the repo root:
+Rust checks, as CI runs them. Run them inside `core/`: rustup picks the toolchain pinned
+in `core/rust-toolchain.toml` from the current directory, not from `--manifest-path`.
 
 ```bash
-# Rust core
-cargo fmt --manifest-path core/Cargo.toml --all -- --check
-cargo clippy --manifest-path core/Cargo.toml --all-targets -- -D warnings
-cargo test --manifest-path core/Cargo.toml
+cd core
+cargo fmt --all --check
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo test --workspace
+cargo deny --all-features check        # needs cargo-deny installed
+cd ..
+```
 
-# Android native libs + Kotlin bindings (needs cargo-ndk and ANDROID_NDK_HOME)
+Android, from the repo root:
+
+```bash
+# Native libs + Kotlin bindings (needs cargo-ndk and ANDROID_NDK_HOME)
 bash scripts/build-android.sh          # or: pwsh scripts/build-android.ps1 on Windows
 
-# Android app (run `gradle wrapper` once in android/ to get ./gradlew locally)
+# App (CI uses Gradle 8.14.3; run `gradle wrapper --gradle-version 8.14.3` once in
+# android/ to get ./gradlew locally; the wrapper files are gitignored)
 gradle -p android :app:assembleDebug
 ```
 
