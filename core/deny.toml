@@ -6,6 +6,10 @@ targets = ["aarch64-linux-android", "x86_64-linux-android", "x86_64-unknown-linu
 
 [advisories]
 version = 2
+# Vulnerabilities fail anywhere in the graph. "Unmaintained" notices fail only
+# for our direct dependencies: a transitive one (e.g. inside uniffi or its
+# bindgen tool) is not ours to replace and would otherwise block every build.
+unmaintained = "workspace"
 
 [licenses]
 version = 2
