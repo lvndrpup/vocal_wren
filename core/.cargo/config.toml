@@ -1,7 +1,0 @@
-# Devices with 16 KB memory pages need every LOAD segment of a shipped .so
-# aligned to at least 16 KB.
-[target.aarch64-linux-android]
-rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=16384"]
-
-[target.x86_64-linux-android]
-rustflags = ["-C", "link-arg=-Wl,-z,max-page-size=16384"]
