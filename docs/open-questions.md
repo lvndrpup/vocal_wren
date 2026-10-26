@@ -5,7 +5,6 @@ resolved, record the answer (usually in an ADR or spec) and link it here.
 
 | ID | Question | Needed by | Notes |
 |---|---|---|---|
-| OQ-J | Is JNA's `libjnidispatch.so` aligned for 16 KB pages? | First CI run | The CI 16 KB check answers it. If not aligned, find another JNA build or approach. See [ADR-0005](adr/0005-16kb-page-alignment.md). |
 | OQ-F | Should confidence be computed per formant, so F2 can be shown for high voices even when F1 is unreliable? | Before the F4 spec | Recommended: yes. Fits principle II (measurement honesty). |
 | OQ-T | How does a user move their history to a new phone without breaking principle I (on-device)? | Before M5 | Relates to F14 Privacy & data. |
 | OQ-I | Run emulator (instrumented) tests in CI, or test manually? | M1 | See [ADR-0004](adr/0004-github-actions-ci-on-ubuntu.md). |

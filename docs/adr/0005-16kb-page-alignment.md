@@ -1,10 +1,13 @@
 ---
-status: proposed
+status: deprecated
 date: 2026-10-26
 decision-makers: owner (lvndrpup)
 ---
 
 # Build native libraries with 16 KB page alignment
+
+> Deprecated by [ADR-0006](0006-pure-kotlin-core-module.md) on 2026-10-26: the app ships no
+> native libraries. If one is ever added, this decision returns through a new ADR.
 
 ## Context and Problem Statement
 

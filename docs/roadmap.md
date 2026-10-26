@@ -6,7 +6,7 @@
 
 | Milestone | Dates | Exit criteria |
 |---|---|---|
-| M0 Foundations | 2026-10-26 → 2026-11-15 | Hello-frame round trip (Kotlin → Rust → Kotlin) builds in CI |
+| M0 Foundations | 2026-10-26 → 2026-11-15 | App shell with the core module builds and tests in CI |
 | M1 Spikes | → 2026-12-13 | ADRs written for each spike below |
 | M2 Test corpus + oracle | 2026-11-01 → 2027-01-31 | Corpus and oracle in CI |
 | M3 v0.1 internal | 2026-12-01 → 2027-03-28 | Internal build with the M3 features |
@@ -18,21 +18,19 @@
 
 ## M0 Foundations (2026-10-26 → 2026-11-15)
 
-Constitution, governance docs, ADRs 0000–0005, Rust workspace (`vt-analysis`, `vt-ffi`),
-Android app shell (`:app`, `:core-bridge`), build scripts and CI.
+Constitution, governance docs, ADRs 0000–0006, Android app shell (`:app`) and the
+pure-Kotlin core module (`:core`), and CI.
 
-**Exit:** the hello-frame round trip builds in CI and the app shows
-`Core 0.1.0 · frame 1`.
+**Exit:** CI runs the core tests and builds the app, which shows `Core 0.1.0 · frame 1`.
 
 ## M1 Spikes (→ 2026-12-13)
 
 Each spike ends in an ADR:
 
-- Oboe audio I/O driven from Rust
+- `AudioRecord` capture at 48 kHz on a dedicated thread, without per-frame allocation
 - LPC formant analysis at high pitch
 - Detecting automatic gain control (AGC) on the input path
-- UniFFI throughput for live frames
-- 16 KB page alignment across all native libraries
+- Kotlin analysis throughput and garbage-collection pauses on a low-end device
 
 ## M2 Test corpus + oracle (2026-11-01 → 2027-01-31)
 
@@ -81,6 +79,6 @@ Staged rollout on Google Play.
 
 - **v1.x**: fixes, polish and content updates from v1.0 feedback.
 - **v2.0**: deeper training features built on the same core.
-- **v3.0**: further platforms reusing the shared Rust core.
+- **v3.0**: further platforms reusing the core through Kotlin Multiplatform.
 
 These later lines are placeholders, not commitments.
