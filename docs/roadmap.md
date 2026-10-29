@@ -71,6 +71,10 @@ A speech-language pathologist reviews coaching content and safety behaviour.
 
 Google Play closed test with at least 25 testers.
 
+The user guide publishes on the docs site for the closed test, marked as a test version
+(spec 001 D-003). Every row of the Play policy checklist is re-checked against the current
+policy within 30 days before the first upload (spec 001 D-018).
+
 ## M8 v1.0 release (2027-09-15)
 
 Staged rollout on Google Play.
