@@ -1,5 +1,5 @@
 ---
-status: proposed
+status: accepted
 date: 2026-10-26
 decision-makers: owner (lvndrpup)
 ---
@@ -34,6 +34,9 @@ Rules:
 * Files are named `NNNN-title-with-dashes.md`, numbered sequentially from `0000`.
 * Agents may write ADRs but always with status **Proposed**. Only the owner changes the
   status to Accepted, Rejected, Deprecated or Superseded.
+* Merging the pull request that adds an ADR accepts it (owner, 2026-10-29). A merged ADR
+  is Accepted whatever its status line says; the next change that touches `docs/adr/`
+  sets the line to `accepted`.
 * Loosening any oracle tolerance (principle X) requires an ADR.
 * A superseded ADR is kept and links to the ADR that replaces it.
 

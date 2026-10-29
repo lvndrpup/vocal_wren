@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-29
 
-**Status**: Draft
+**Status**: Accepted (merged in #29); amended 2026-10-29 with the owner's answers to plan Q-1 to Q-7
 
 **Ledger item**: `043ea3ndd` (parent epic C)
 
@@ -138,9 +138,10 @@ finds no repo ID and no code identifier in it.
    user into contributor pages for something they need.
 2. **Given** a change that adds or changes behaviour a user sees, **When** it is merged,
    **Then** the user-guide page for that behaviour changes in the same change.
-3. **Given** the app has not had its first public release, **When** the site is published,
+3. **Given** the app has not reached its closed test, **When** the site is published,
    **Then** the user part is built and checked but not published, so the site never
-   promises users something that doesn't exist.
+   promises users something that doesn't exist. From the closed test until the first
+   public release, every user page says it describes a test version.
 4. **Given** a metric the app hides because its confidence is too low (principle II),
    **When** a user asks why, **Then** the guide explains it plainly, without blaming
    their voice.
@@ -230,8 +231,11 @@ from the contributor navigation, and it passes the link and network checks.
 - **FR-004**: Every proposed change that touches `docs/` or the site's build MUST build
   the whole site and make it available to reviewers to download.
 - **FR-005**: The user guide MUST be built and checked on every such change, but MUST NOT
-  be published before the app's first public release. Publishing it is the owner's
-  decision.
+  be published before the app's closed test (M7). From then until the first public
+  release, every user-guide page MUST say it describes a test version.
+- **FR-006**: The privacy policy MUST be published on the site at a stable address, apart
+  from the user guide, as soon as it is written. It MUST state only what the app does at
+  that time.
 
 **Trust**
 
@@ -275,6 +279,8 @@ from the contributor navigation, and it passes the link and network checks.
   speech-language pathologist for pain, voice loss or lasting hoarseness (principle IV).
 - **FR-035**: It MUST NOT ask about, assume or sort users by gender. Targets are described
   as parameters; presets are optional labels the user chooses (principle III).
+- **FR-036**: The user guide and the privacy policy MUST meet WCAG 2.2 AA before they are
+  first published, shown by an audit recorded in the change that publishes them.
 
 **Authoring**
 
@@ -319,11 +325,11 @@ from the contributor navigation, and it passes the link and network checks.
 | III Targets, not identities | No page sorts voices or users into gender categories. The user guide describes targets as parameter sets and presets as optional labels (FR-035). |
 | IV Not medical care | No page diagnoses or treats anything. The user guide and FAQ point to professionals (FR-034). User-facing explanations of voice science are written after, or checked in, the SLP review (M6). |
 | VI Encouragement, not coercion | The writing guide bans guilt and pressure wording in the user guide, as for content packs. |
-| VII Visual-first accessibility | The principle binds the app. The site uses a generator whose default theme supports keyboard navigation and a high-contrast theme, and the writing guide requires alt text for every image. Full WCAG 2.2 AA for the site is open question Q-4 in the plan. |
+| VII Visual-first accessibility | The principle binds the app. The site uses a generator whose default theme supports keyboard navigation and a high-contrast theme, and the writing guide requires alt text for every image. The user guide and privacy policy meet WCAG 2.2 AA before they publish (FR-036). |
 | VIII Content as data | The user guide never holds coaching text (FR-033). |
 | IX Shared core | No production code changes. The API docs plugin is applied to `:core`'s build for documentation only: it adds no runtime dependency, and `:core` stays free of Android dependencies. |
 | X Test-first | Each site check lands with a test that fails before it, in the same change. |
-| XI Decisions recorded | Tools and licences are recorded in [ADR-0007](../../docs/adr/0007-docs-site.md) (Proposed). |
+| XI Decisions recorded | Tools and licences are recorded in [ADR-0007](../../docs/adr/0007-docs-site.md) (Accepted). |
 | Licensing constraint | Nothing from the docs toolchain enters the app binary. ADR-0007 lists the licence of every tool and every third-party asset in the published site. |
 
 ## Play Impact
@@ -335,8 +341,8 @@ checklist lands. Writing the checklist is draft ledger item `043k784ev` (plan, Q
 | Point | Effect | Checklist ID |
 |---|---|---|
 | App binary, permissions, Data safety form | None. The feature changes nothing in `:app`, the manifest or any shipped dependency. | pending |
-| Privacy policy | Google Play asks apps that use sensitive permissions such as `RECORD_AUDIO` for a privacy policy at a public URL and inside the app [verify]. The site is a natural home for that URL. Where it lives, and whether it can publish before the user guide does, is open question Q-3 in the plan. | pending |
-| Store listing consistency | The FAQ and user guide must not contradict the store listing or the Data safety answers ("no data collected or shared"). Publishing the user guide at release lets review check all three together. | pending |
+| Privacy policy | Google Play asks apps that use sensitive permissions such as `RECORD_AUDIO` for a privacy policy at a public URL and inside the app [verify]. The site hosts it at a stable address, published as soon as it is written and apart from the user guide (FR-006). | pending |
+| Store listing consistency | The FAQ and user guide must not contradict the store listing or the Data safety answers ("no data collected or shared"). Publishing the user guide for the closed test lets review check all three together before release. | pending |
 | Health and medical claims | The user guide makes no medical claims (FR-034), consistent with principle IV and the category question OQ-C. | pending |
 | Deceptive behaviour | The guide describes only behaviour that exists (FR-032), so it can't promise features the app lacks. | pending |
 

@@ -2,7 +2,7 @@
 
 > Dates were re-baselined for the 2026-10-26 restart. They are the owner's to confirm and
 > may move. Milestones overlap on purpose: the test corpus and content work run alongside
-> engineering. Feature IDs (F1–F16) refer to specs under `specs/` (planned).
+> engineering. Feature IDs (F1–F16) name specs under `specs/`, as the `fNN` part of each folder name.
 
 | Milestone | Dates | Exit criteria |
 |---|---|---|
@@ -70,6 +70,10 @@ A speech-language pathologist reviews coaching content and safety behaviour.
 ## M7 Play closed test (2027-08-01 → 2027-08-29)
 
 Google Play closed test with at least 25 testers.
+
+The user guide publishes on the docs site for the closed test, marked as a test version
+(spec 001 D-003). Every row of the Play policy checklist is re-checked against the current
+policy within 30 days before the first upload (spec 001 D-018).
 
 ## M8 v1.0 release (2027-09-15)
 
