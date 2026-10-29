@@ -334,17 +334,15 @@ from the contributor navigation, and it passes the link and network checks.
 
 ## Play Impact
 
-**No play-checklist exists yet.** CLAUDE.md asks for play-checklist IDs on each point, and
-there are none to cite. The points below are written so IDs can be added once the
-checklist lands. Writing the checklist is draft ledger item `043k784ev` (plan, Q-1).
+IDs are from [`docs/play-checklist.md`](../../docs/play-checklist.md).
 
 | Point | Effect | Checklist ID |
 |---|---|---|
-| App binary, permissions, Data safety form | None. The feature changes nothing in `:app`, the manifest or any shipped dependency. | pending |
-| Privacy policy | Google Play asks apps that use sensitive permissions such as `RECORD_AUDIO` for a privacy policy at a public URL and inside the app [verify]. The site hosts it at a stable address, published as soon as it is written and apart from the user guide (FR-006). | pending |
-| Store listing consistency | The FAQ and user guide must not contradict the store listing or the Data safety answers ("no data collected or shared"). Publishing the user guide for the closed test lets review check all three together before release. | pending |
-| Health and medical claims | The user guide makes no medical claims (FR-034), consistent with principle IV and the category question OQ-C. | pending |
-| Deceptive behaviour | The guide describes only behaviour that exists (FR-032), so it can't promise features the app lacks. | pending |
+| App binary, permissions, Data safety form | None. The feature changes nothing in `:app`, the manifest or any shipped dependency. | PLAY-02, PLAY-03, PLAY-04 |
+| Privacy policy | Google Play asks apps that use sensitive permissions such as `RECORD_AUDIO` for a privacy policy at a public URL and inside the app, even when no personal data is collected. The site hosts it at a stable address, published as soon as it is written and apart from the user guide (FR-006). | PLAY-01 |
+| Store listing consistency | The FAQ and user guide must not contradict the store listing or the Data safety answers ("no data collected or shared"). Publishing the user guide for the closed test lets review check all three together before release. | PLAY-02, PLAY-06, PLAY-07 |
+| Health and medical claims | The user guide makes no medical claims (FR-034), consistent with principle IV and the category question OQ-C. | PLAY-05 |
+| Deceptive behaviour | The guide describes only behaviour that exists (FR-032), so it can't promise features the app lacks. | PLAY-06 |
 
 ## Assumptions
 

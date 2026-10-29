@@ -74,7 +74,7 @@ Specs must include:
 - a **Principles Touched** section naming the constitution principles involved and how
   the spec complies;
 - a **Play Impact** section covering Google Play policy effects, citing play-checklist
-  IDs for each compliance point from `docs/play-checklist.md` (being written: `043k784ev`).
+  IDs for each compliance point from `docs/play-checklist.md`.
 
 ## Repo layout
 
