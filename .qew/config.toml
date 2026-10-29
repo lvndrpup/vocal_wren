@@ -7,3 +7,6 @@ target = "main"
 [[mirror]]
 forge = "github"
 repo = "https://github.com/lvndrpup/vocal_wren"
+
+[forge]
+login = "lvndrpup"
