@@ -1,0 +1,22 @@
+[book]
+title = "Vocal Wren for contributors"
+language = "en"
+src = "docs"
+
+[build]
+build-dir = "build/site/dev"
+# An entry for a missing page fails the build instead of creating an empty one.
+create-missing = false
+# The default `index` preprocessor renames README.md to index.html but leaves
+# links to README.md pointing at a missing README.html; only `links` is re-enabled.
+use-default-preprocessors = false
+
+[output.html]
+git-repository-url = "https://github.com/lvndrpup/vocal_wren"
+edit-url-template = "https://github.com/lvndrpup/vocal_wren/edit/main/{path}"
+
+# A runnable Rust block makes book.js fetch play.rust-lang.org on page load.
+[output.html.playground]
+runnable = false
+
+[preprocessor.links]

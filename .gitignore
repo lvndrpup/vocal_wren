@@ -7,3 +7,6 @@ Thumbs.db
 .idea/
 .vscode/
 *.swp
+
+# Docs site build output and downloaded tools
+build/
