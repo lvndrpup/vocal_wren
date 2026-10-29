@@ -2,7 +2,7 @@
 
 > Dates were re-baselined for the 2026-10-26 restart. They are the owner's to confirm and
 > may move. Milestones overlap on purpose: the test corpus and content work run alongside
-> engineering. Feature IDs (F1–F16) refer to specs under `specs/` (planned).
+> engineering. Feature IDs (F1–F16) name specs under `specs/`, as the `fNN` part of each folder name.
 
 | Milestone | Dates | Exit criteria |
 |---|---|---|

@@ -7,7 +7,7 @@ Vocal Wren ("Wren Buddy") is a free, on-device Android vocal trainer. App ID
 
 1. [`docs/constitution.md`](docs/constitution.md): non-negotiable principles I–XI.
 2. The qew ledger (`../vocal_wren-ledger`): what work exists and its state.
-3. Specs (`specs/`, planned).
+3. Specs (`specs/`).
 4. Other docs (`docs/`, including ADRs in `docs/adr/`).
 
 When two sources disagree, the higher one wins. Point out the conflict; don't silently
@@ -58,16 +58,23 @@ All work is tracked in the qew ledger (see [ADR-0003](docs/adr/0003-qew-work-led
 
 - MADR 4 format in `docs/adr/`, numbered `NNNN-title.md`
   (see [ADR-0000](docs/adr/0000-record-architecture-decisions.md)).
-- Agents write ADRs with status **Proposed** only. Only the owner accepts them.
+- Agents write ADRs with status **Proposed** only. Only the owner accepts them, and
+  merging the PR that adds an ADR is the acceptance. A merged ADR is Accepted whatever its
+  status line says; the next agent change that touches `docs/adr/` sets the line to
+  `accepted`.
 
 ## Specs
 
-Specs (planned under `specs/`) must include:
+Specs live in `specs/NNN-fNN-slug/`: `NNN` is the next number in sequence and `fNN` the
+roadmap feature (`002-f01-audio-engine`). Specs that are not roadmap features leave the
+tag out (`001-docs-site`).
+
+Specs must include:
 
 - a **Principles Touched** section naming the constitution principles involved and how
   the spec complies;
 - a **Play Impact** section covering Google Play policy effects, citing play-checklist
-  IDs for each compliance point.
+  IDs for each compliance point from `docs/play-checklist.md` (being written: `043k784ev`).
 
 ## Repo layout
 
@@ -78,7 +85,7 @@ android/    Gradle project "wren": :app (Compose UI, Android glue), :core (pure 
 docs/       constitution, roadmap, open questions, ADRs, salvage notes
 content/    coaching content packs (planned)
 oracle/     Praat/parselmouth oracle tests (planned)
-specs/      feature specs (planned)
+specs/      feature specs
 ```
 
 ## Build commands
