@@ -17,7 +17,7 @@ voice's harmonics sit at 200, 400, 600 Hz and so on (see
 [Sound and frequency](sound-and-frequency.md#harmonics)).
 
 F0 is a property of the signal. It can be measured, and it is what Wren's core reports
-(`Frame.f0Hz` in [`android/core`](../../android/core/src/main/kotlin/dog/lavenderpuppy/vocalwren/core/Frame.kt)).
+(`Frame.f0Hz` in [`android/core`](https://github.com/lvndrpup/vocal_wren/blob/main/android/core/src/main/kotlin/dog/lavenderpuppy/vocalwren/core/Frame.kt)).
 
 ## Pitch: what you hear
 

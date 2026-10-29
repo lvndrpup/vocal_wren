@@ -132,7 +132,7 @@ every DSP PR; tolerance files change only alongside an ADR.
 
 ## XI. Decisions recorded
 
-Significant decisions are recorded as MADR ADRs in [`docs/adr/`](adr/).
+Significant decisions are recorded as MADR ADRs in [`docs/adr/`](https://github.com/lvndrpup/vocal_wren/tree/main/docs/adr).
 
 **Rationale.** A solo, part-time project loses context between sessions. Written decisions
 let the owner and agents pick up where they left off and see why things are as they are.

@@ -8,7 +8,7 @@ decision-makers: owner (lvndrpup)
 
 ## Context and Problem Statement
 
-[Spec 001](../../specs/001-docs-site/spec.md) publishes `docs/` as a static site in three
+[Spec 001](https://github.com/lvndrpup/vocal_wren/blob/main/specs/001-docs-site/spec.md) publishes `docs/` as a static site in three
 parts: a contributor guide, Learn, and a user guide, with the `:core` API docs beside them.
 Three questions need an answer before its build lands. Which tool builds the guide pages?
 Which builds the API docs? And what licences may the tools and the files they put in the
@@ -16,7 +16,7 @@ published site carry, given that the licensing constraint in the
 [constitution](../constitution.md#licensing-constraint) speaks only of the app binary?
 
 This ADR records the plan's decisions D-001, D-007, D-008 and D-011
-([plan](../../specs/001-docs-site/plan.md#decision-ledger)).
+([plan](https://github.com/lvndrpup/vocal_wren/blob/main/specs/001-docs-site/plan.md#decision-ledger)).
 
 ## Decision Drivers
 
@@ -175,9 +175,9 @@ Tools that run only in CI or on a contributor's machine, and write nothing into 
 
 ## More Information
 
-* Spec 001: [spec](../../specs/001-docs-site/spec.md),
-  [research](../../specs/001-docs-site/research.md),
-  [plan](../../specs/001-docs-site/plan.md).
+* Spec 001: [spec](https://github.com/lvndrpup/vocal_wren/blob/main/specs/001-docs-site/spec.md),
+  [research](https://github.com/lvndrpup/vocal_wren/blob/main/specs/001-docs-site/research.md),
+  [plan](https://github.com/lvndrpup/vocal_wren/blob/main/specs/001-docs-site/plan.md).
 * Adapted from OpenPlush
   [ADR 0017](https://github.com/openplush/openplush/blob/main/docs/adr/0017-docs-site.md).
 * Revisit if mdBook or Dokka starts loading anything remote, if a docs asset is needed in
