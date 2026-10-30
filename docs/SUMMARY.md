@@ -18,6 +18,7 @@
 - [Roadmap](roadmap.md)
 - [Open questions](open-questions.md)
 - [Google Play policy checklist](play-checklist.md)
+- [Writing docs](how-to/write-docs.md)
 
 # Reference
 
