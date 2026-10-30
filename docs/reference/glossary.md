@@ -13,7 +13,7 @@ Jump to: [A](#a) · [B](#b) · [C](#c) · [D](#d) · [E](#e) · [F](#f) · [H](#
 ### ADR-*nnnn*
 An **architecture decision record**: a short document, in MADR 4 format, recording one
 significant decision with its context and alternatives. Numbered `ADR-0000`, `ADR-0001` ...
-in [`docs/adr/`](../adr/). Agents propose them with status Proposed; only the owner accepts
+in [`docs/adr/`](https://github.com/lvndrpup/vocal_wren/tree/main/docs/adr). Agents propose them with status Proposed; only the owner accepts
 them (constitution principle XI).
 
 ### AEC (acoustic echo cancellation)
