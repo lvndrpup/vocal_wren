@@ -10,3 +10,6 @@ Thumbs.db
 
 # Docs site build output and downloaded tools
 build/
+
+# Python bytecode from scripts/
+__pycache__/
