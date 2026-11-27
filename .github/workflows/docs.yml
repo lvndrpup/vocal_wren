@@ -1,0 +1,101 @@
+# Docs site (spec 001): builds and checks it on every PR and on main. A PR's preview
+# is a downloadable artifact (D-010). Main deploys to GitHub Pages, which must have
+# Source "GitHub Actions" with the github-pages environment restricted to main.
+# Runs on every PR and skips its steps when nothing relevant changed, so it can become
+# a required check without blocking PRs that skip it (D-009).
+name: docs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  # Cancel superseded PR runs only; every push to main gets its own run.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    name: build and check the site
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - id: changes
+        name: Did this PR touch the site?
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" != pull_request ] ||
+             git diff --name-only "$BASE" HEAD |
+               grep -qE '^(docs/|book\.toml$|scripts/docs/|android/core/|android/gradle/|\.github/workflows/docs\.yml$)'; then
+            echo relevant=true >> "$GITHUB_OUTPUT"
+          else
+            echo "Nothing the docs site uses changed; skipping."
+            echo relevant=false >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.changes.outputs.relevant == 'true'
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      # Caches Gradle and validates the committed wrapper JAR's checksum.
+      - if: steps.changes.outputs.relevant == 'true'
+        uses: gradle/actions/setup-gradle@v4
+
+      # The same entry point contributors run: pinned, checksummed mdBook and lychee.
+      - if: steps.changes.outputs.relevant == 'true'
+        run: python3 scripts/docs/build_site.py
+
+      - if: steps.changes.outputs.relevant == 'true'
+        name: Two builds of the site are identical
+        run: |
+          mv build/site "$RUNNER_TEMP/site-1"
+          python3 scripts/docs/build_site.py
+          diff -r "$RUNNER_TEMP/site-1" build/site
+
+      - if: steps.changes.outputs.relevant == 'true' && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: docs-site
+          path: build/site/
+          retention-days: 7
+          if-no-files-found: error
+
+      # The user book is built and checked from its first page but published only
+      # from the M7 closed test (D-003).
+      - if: github.event_name != 'pull_request'
+        run: rm -rf build/site/guide
+      - if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: build/site/
+
+  deploy:
+    name: deploy to GitHub Pages
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    # Deploys queue rather than cancel one in progress, so each push to main finishes.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

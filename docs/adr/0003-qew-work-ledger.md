@@ -47,4 +47,4 @@ it gives agents a structured workflow (`qew ready`, `start`, `evidence`, `comple
 ## More Information
 
 * qew: <https://github.com/foundlings/qew>
-* [CLAUDE.md](../../CLAUDE.md) for the agent workflow
+* [CLAUDE.md](https://github.com/lvndrpup/vocal_wren/blob/main/CLAUDE.md) for the agent workflow

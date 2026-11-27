@@ -63,6 +63,11 @@ All work is tracked in the qew ledger (see [ADR-0003](docs/adr/0003-qew-work-led
   status line says; the next agent change that touches `docs/adr/` sets the line to
   `accepted`.
 
+## Docs
+
+Before adding or editing a page under `docs/`, load the `docs` skill. Its rules live in
+[`docs/how-to/write-docs.md`](docs/how-to/write-docs.md).
+
 ## Specs
 
 Specs live in `specs/NNN-fNN-slug/`: `NNN` is the next number in sequence and `fNN` the
